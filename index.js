@@ -12,7 +12,8 @@ AWS.config.update({
     region: 'us-east-1',
     accessKeyId:'ASIAWYDQIOYELSXCZGHO',
     secretAccessKey:'PCe7EhfwBLbfPqjRj7XDdOkH2XLRUxvdWw//nvyQ',
-    sessionToken: 'FwoGZXIvYXdzEIn//////////wEaDJGrKzyYt4QdyT33XCLAAR0GiVHpN3BUJqFzVk+gDAVeQVaaCEW7rkBHs2C9FN/M/MvUb4lF7IwLxjfdUSgwfVInBK7czE5z08HSvLZVowIqbNeKcwbjOPeYqmjyGs251FECjN2rL2X6vT5oQiaY0duHAoKI96qhlGJM9t9v3/Ox9GGNLsc3guQVZbBcl6cMZm49NUGc0m2SCslSqEcijx51fJVC7EDa5T8RJ2/8FmTSKfRfAUZ359yPpoFhmeB0cbV+/EvhgQHChm2+6YzrAiiTmuWfBjItB2aIUF+33+n9gAG4ippELcJGqW2aWbP4XBWFV/+JrIeeCytYqgTyf1KCIobt'});
+    sessionToken: 'FwoGZXIvYXdzEIn//////////wEaDJGrKzyYt4QdyT33XCLAAR0GiVHpN3BUJqFzVk+gDAVeQVaaCEW7rkBHs2C9FN/M/MvUb4lF7IwLxjfdUSgwfVInBK7czE5z08HSvLZVowIqbNeKcwbjOPeYqmjyGs251FECjN2rL2X6vT5oQiaY0duHAoKI96qhlGJM9t9v3/Ox9GGNLsc3guQVZbBcl6cMZm49NUGc0m2SCslSqEcijx51fJVC7EDa5T8RJ2/8FmTSKfRfAUZ359yPpoFhmeB0cbV+/EvhgQHChm2+6YzrAiiTmuWfBjItB2aIUF+33+n9gAG4ippELcJGqW2aWbP4XBWFV/+JrIeeCytYqgTyf1KCIobt'
+});
 
 const s3 = new AWS.S3();
 
