@@ -19,7 +19,7 @@ const s3 = new AWS.S3();
 const postStart = async () => {
     const resp = await axios.post('http://52.91.127.198:8080/start', {
         banner: "B00911903",
-        ip: "18.207.140.114:5000"
+        ip: "34.204.61.232:5000"
     })
     console.log(resp.data);
     
