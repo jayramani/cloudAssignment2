@@ -54,7 +54,7 @@ app.post('/storedata', (req, res) => {
 
 // APPEND CONTENT TO THE FILE
 app.post('/appenddata', (req, res) => {
-    const bName = "a2-bucket-dixit";
+    const bName = "csci5409-00911903";
     const keyName = "file.txt";
 
     const new_data = req.body.data.toString();
@@ -89,7 +89,7 @@ app.post('/appenddata', (req, res) => {
 
 app.post('/deletefile', (req, res) => {
     const get_params = {
-        Bucket: "a2-bucket-dixit",
+        Bucket: "csci5409-00911903",
         Key: "file.txt"
     };
 
