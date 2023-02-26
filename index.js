@@ -1,18 +1,18 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const axios = require('axios')
-const app = express()
-const AWS = require('aws-sdk')
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const app = express();
+const AWS = require('aws-sdk');
 
 const PORT = 5000
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(bodyParser.json())
+
+app.use(express.json());
 
 AWS.config.update({
     region: 'us-east-1',
-    accessKeyId:'ASIAWYDQIOYELSXCZGHO',
-    secretAccessKey:'PCe7EhfwBLbfPqjRj7XDdOkH2XLRUxvdWw//nvyQ',
-    sessionToken: 'FwoGZXIvYXdzEIn//////////wEaDJGrKzyYt4QdyT33XCLAAR0GiVHpN3BUJqFzVk+gDAVeQVaaCEW7rkBHs2C9FN/M/MvUb4lF7IwLxjfdUSgwfVInBK7czE5z08HSvLZVowIqbNeKcwbjOPeYqmjyGs251FECjN2rL2X6vT5oQiaY0duHAoKI96qhlGJM9t9v3/Ox9GGNLsc3guQVZbBcl6cMZm49NUGc0m2SCslSqEcijx51fJVC7EDa5T8RJ2/8FmTSKfRfAUZ359yPpoFhmeB0cbV+/EvhgQHChm2+6YzrAiiTmuWfBjItB2aIUF+33+n9gAG4ippELcJGqW2aWbP4XBWFV/+JrIeeCytYqgTyf1KCIobt'
+    accessKeyId:'ASIAWYDQIOYENRSFXRXI',
+    secretAccessKey:'nbaf4OV+2diKDf2MbILYtzUfZXtmYZVgojVI3mEq',
+    sessionToken: 'FwoGZXIvYXdzELn//////////wEaDJoSxB01WDls37bmBSLAAdgMVLlbFznuxOea6NEHY+ZtiPIhdCCuwKmtvYUytX2yvVUq0Vv96aYrO/Y6K5N8j0lGOP+ArQK6U0G/f/bsWblMpt2ud/NwRnCX+aV2xo76jirwNq2xYceJlPAWJts2u+XNcW6bJmrBNZ/EZtR+ilLUHEd6iQjXIQFeOvjCbGFsCn38lgpVXIEf7TZ7XIpSu2VAH7hEgDMQtIy9j+79EdioUO9PERFMnZUOBXYwawSbgNkTwDHuMdWvPv8SYjt9OyiRz++fBjItIqUKG6UWU6V9gq8qlT9PiGrym3s3GOCahrh+wpmImcyTUPB/VAx5lJ+2wKQk'
 });
 
 const s3 = new AWS.S3();
@@ -20,25 +20,21 @@ const s3 = new AWS.S3();
 const postStart = async () => {
     const resp = await axios.post('http://52.91.127.198:8080/start', {
         banner: "B00911903",
-        ip: "34.204.61.232:5000"
+        ip: "54.89.28.0:5000"
     })
     console.log(resp.data);
     
 }
-
-
-// Making POST request to start endpoint
 postStart();
 
-
 app.post('/storedata', (req, res) => {
-    const rData = req.body.data;
-    console.log(rData);
+    const getData = req.body.data;
+    console.log(getData);
 
     s3.upload({
         Bucket: 'csci5409-00911903',
         Key: 'file.txt',
-        Body: rData
+        Body: getData
     }, function(err, data){
         if (err){
             res.status(500);
@@ -53,24 +49,23 @@ app.post('/storedata', (req, res) => {
 
 });
 
-// APPEND CONTENT TO THE FILE
 app.post('/appenddata', (req, res) => {
-    const bName = "csci5409-00911903";
+    const bucketName = "csci5409-00911903";
     const keyName = "file.txt";
 
-    const new_data = req.body.data.toString();
-    if (new_data){
-        s3.getObject({Bucket : bName, Key : keyName}, (err, data) => {
+    const toAppend = req.body.data.toString();
+    if (toAppend){
+        s3.getObject({Bucket : bucketName, Key : keyName}, (err, data) => {
             if (err){
                 console.log(err);
                 res.status(500);
             } else {
                 const oldContent = data.Body.toString();
-                const updatedContent = oldContent + new_data;
+                const afterAppend = oldContent + toAppend;
                 s3.putObject({
-                    Bucket:bName,
+                    Bucket:bucketName,
                     Key:keyName,
-                    Body:updatedContent
+                    Body:afterAppend
                 }, (err, data) => {
                     if (err) {
                         res.status(500);
@@ -105,8 +100,6 @@ app.post('/deletefile', (req, res) => {
 
 })
 
-
-// App server is listening
 app.listen(PORT, (error) => {
     if (!error){
         console.log("Server is running on PORT: "+PORT)
